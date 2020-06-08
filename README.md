@@ -3,7 +3,8 @@ vm에서 ohpc이용 해서 centos7.7 provisioning 하기
 ------------------------------------------------------------------------------------------------------------------------------------
       -os: CentOS-7-x86_64-DVD-1908.iso(minimal 버전 사용시 raminitfs 생성 시 에러 발생)
 
-      -pbspro 버전: pbspro-19.1.3
+      -pbspro 버전: pbspro-server-ohpc-19.1.3-3.1.ohpc.1.3.9.x86_64
+                    pbspro-execution-ohpc-19.1.3-3.1.ohpc.1.3.9.x86_64
 
       -구성 : master 서버 1대, 계산 노드 2대 
       
