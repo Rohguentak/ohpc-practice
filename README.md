@@ -79,7 +79,7 @@ ohpc 및 xcat 설치
       [root@master ~]# chdef -t site dhcpinterfaces="xcatmn|enp0s8" 
       1 object definitions have been created or modified.
 
-      [root@master ~]# tabdump site  //site는 xcat에서 cluster 전체의 global 설정을 저장하는 xcat db 내부의 table이다.
+      [root@master ~]# tabdump site  //site는 xcat에서 cluster 전체의 global 설정을 저장하는 xcat db 내부의 table이다. https://xcat-docs.readthedocs.io/en/stable/guides/admin-guides/references/man5/site.5.html
       #key,value,comments,disable
       "blademaxp","64",,
       "fsptimeout","0",,
