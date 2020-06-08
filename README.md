@@ -46,6 +46,8 @@ vm에서 ohpc이용 해서 centos7.7 provisioning 하기
       master
       [root@master ~]# domainname
       test.com
+      [root@master ~]# systemctl stop firewalld
+      [root@master ~]# systemctl disable firewalld
       [root@master ~]# systemctl status firewalld
       ● firewalld.service - firewalld - dynamic firewall daemon
          Loaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)
@@ -55,13 +57,13 @@ ohpc 및 xcat 설치
    ------------------------------------------------------------------------------------------------------------------------------------
 
       [root@master ~]# yum install -y http://build.openhpc.community/OpenHPC:/1.3/CentOS_7/x86_64/ohpc-release-1.3-1.el7.x86_64.rpm 
-      [root@master ~]# yum install -y yum-utils
-      [root@master ~]# yum install -y ohpc-base
+      [root@master ~]# yum install -y yum-utils    //추후에 사용할 yum-config-manager 명령어를 위함
+      [root@master ~]# yum install -y ohpc-base    //ohpc설치
+      
       [root@master ~]# wget -P /etc/yum.repos.d https://xcat.org/files/xcat/repos/yum/latest/xcat-core/xcat-core.repo
       [root@master ~]# wget -P /etc/yum.repos.d https://xcat.org/files/xcat/repos/yum/xcat-dep/rh7/x86_64/xcat-dep.repo
-      
       [root@master ~]# yum install -y xCAT
-      [root@master ~]# . /etc/profile.d/xcat.sh
+      [root@master ~]# source /etc/profile.d/xcat.sh     //xcat 설치 및 수정내용 적용
  클러스터내 시간 sync맞추기 위한 ntp server설정 & 스케줄러 설치
  -----------------------------------------
       [root@master ~]# systemctl enable ntpd.service
@@ -70,11 +72,13 @@ ohpc 및 xcat 설치
       
       [root@master ~]# yum -y install pbspro-server-ohpc //pbspro 서버 설치
       
+ xcat 설정
+ ---------
       [root@master ~]# ifconfig enp0s8 172.28.128.10 netmask 255.255.255.0 up
       [root@master ~]# chdef -t site dhcpinterfaces="xcatmn|enp0s8" 
       1 object definitions have been created or modified.
 
-      [root@master ~]# tabdump site
+      [root@master ~]# tabdump site  //site는 xcat에서 cluster 전체의 global 설정을 저장하는 xcat db 내부의 table이다.
       #key,value,comments,disable
       "blademaxp","64",,
       "fsptimeout","0",,
@@ -111,7 +115,7 @@ ohpc 및 xcat 설치
       "dhcplease","43200",,
       "auditnosyslog","0",,
       "auditskipcmds","ALL",,
-      "dhcpinterfaces","xcatmn|enp0s8",,      //chdef로 변경한 내용 반영됨
+      "dhcpinterfaces","xcatmn|enp0s8",,      //dhcpinterface의 경우 xcatmn은 management node를 의미하며 mn의 dhcp가 listen 해야하는 인터페이스를 설정해준 것
 배포할 이미지 생성
 ------------------
       [root@master ~]# copycds CentOS-7-x86_64-DVD-1908.iso 
