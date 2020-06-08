@@ -341,3 +341,4 @@ ohpc 및 xcat 설치
 pbspro 확인
 -----------
       기존의 pbspro 테스트 방식과 동일(예시: https://github.com/Rohguentak/pbs_pro_exercise)
+      failover 구성시 각 노드의 용도에 맞게 pbs.conf를 수정해주면 
